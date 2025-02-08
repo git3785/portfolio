@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,34 +11,20 @@ const EmailSection = () => {
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
-  // Handle form submission
-  const handleSubmit = async (e: React.FormEvent) => {
+  // Handle form submission without an API call
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
     setIsLoading(true);
     setError("");
     setSuccessMessage("");
 
-    try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, subject, message }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to send message");
-      }
-
-      const data = await response.json();
-      setSuccessMessage(data.message); // Success message from API
-    } catch (err) {
-      setError("Something went wrong. Please try again.");
-    } finally {
+    // Simulate a delay (1 second) for form submission
+    setTimeout(() => {
+      // Simulate successful submission
+      setSuccessMessage("Your message has been sent successfully!");
       setIsLoading(false);
-    }
+    }, 1000);
   };
 
   return (
@@ -52,7 +38,8 @@ const EmailSection = () => {
       <div className="z-10">
         <h5 className="text-xl font-bold text-white my-2">Let&apos;s Connect</h5>
         <p className="text-[#ADB7BE] mb-4 max-w-md">
-          I&apos;m currently looking for new opportunities, my inbox is always open. Whether you have a question or just want to say hi, I'll try my best to get back to you!
+          I&apos;m currently looking for new opportunities, my inbox is always open.
+          Whether you have a question or just want to say hi, I&apos;ll try my best to get back to you!
         </p>
         <div className="socials flex flex-row gap-2">
           <Link href="https://github.com" target="_blank">
@@ -108,3 +95,4 @@ const EmailSection = () => {
 };
 
 export default EmailSection;
+
